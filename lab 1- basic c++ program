@@ -1043,3 +1043,44 @@ int main()
 	 } 
 	return 0;	
 }
+
+/*Q 24
+Write programs to demonstrate:
+1. Implicit type conversion 
+2. Explicit type conversion 
+Display the output before and after conversion.
+*/
+
+//implicit type conversion
+#include <iostream>
+using namespace std;
+int main() {
+    int a=15;      // Integer
+    char c='A';    // Character (ASCII value of 'A' is 65)
+
+    cout<<"Before Conversion:"<<endl;
+    cout<<"Integer value:" <<a<<endl;
+    cout<<"Character value:" <<c<< endl;
+    
+    int result=a+c; //Implicit conversion method
+
+    cout<<"After Implicit Conversion"<< endl;
+    cout<<"Result of (int a + char c) is: "<<result<< endl;
+    return 0;
+}
+
+//explicit type conversion
+#include <iostream>
+using namespace std;
+int main() {
+    float a=45.78;
+
+    cout<<"Before Conversion"<<endl;
+    cout<<"Original Value:"<<a<< endl;
+
+    int result =float (a);  // Explicit conversion method
+
+    cout<<"After Explicit Conversion"<<endl;
+    cout<<"Converted Value:"<<result;
+    return 0;
+}

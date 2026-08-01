@@ -1,0 +1,622 @@
+1.Lab 1: Basic Inheritance & Access Specifiers.............................................................
+/* Create a base class Vehicle with private data members speed and fuelAmount, and public member
+functions to input and display them. Derive a class Car publicly from Vehicle that adds a brand
+attribute. Write a main() function to test it.*/
+
+#include<iostream>
+using namespace std;
+class vehicle{
+	float speed;
+	float fuelamount;
+	public:
+		void getdata(){
+			cout<<"Enter speed (km/hr): ";
+			cin>>speed;
+			cout<<"Enter fuelAmount (L): ";
+			cin>>fuelamount;
+		}
+		
+		void showdata()
+		{
+			cout<<"The speed is: "<<speed<<endl;
+			cout<<"The fuel Amount is: "<<fuelamount<<endl;
+		}
+};
+class car:public vehicle
+{
+	public:
+	void brand()
+	{
+		cout<<"The brand is toyota";
+	}
+	
+};
+int main()
+{
+	car t;
+	t.getdata();
+	t.showdata();
+	t.brand();
+	return 0;
+}
+
+.............................................................................................
+/*Create a class Base with one private, one protected, and one public data member. Derive three
+classes from it — one using public, one using protected, and one using private derivation. In each
+derived class, write a function that tries to access all three base members, and comment on which
+ones compile and which don't.*/
+#include<iostream>
+using namespace std;
+class base{
+	private:
+		int a;
+		protected:
+			int b;
+			public:
+				int c;
+				
+				void get()
+				{
+					cout<<"Enter value of a,b,c";
+					cin>>a>>b>>c;
+				}
+				void show(){
+					cout<<"value of a,b,c are:"<<a<<","<<b<<","<<c<<endl;
+				}
+};
+class child1:public base{
+	
+};
+class child2:protected base{
+	
+};
+class child3:private base{
+	
+};
+
+int main()
+{
+	child1 t1;
+	t1.get();
+	t1.show();
+	child2 t2;
+}
+
+2.Lab 2: Types of Inheritance.............................................................
+/*(Single Inheritance) Create a class Person with name and age. Derive a class Employee from it
+with empId and salary. Display complete details of an employee object.*/
+#include<iostream>
+#include<string>
+using namespace std;
+class person{
+	protected:
+	int age;
+	string name;
+};
+
+class employee:public person{
+	int empid;
+	float salary;
+	public:
+		void getdata()
+		{
+			cout<<"Enter employee id:";
+			cin>>empid;
+			cin.ignore();
+			cout<<"Enter name:";
+			getline(cin,name);
+			cout<<"Enter age:";
+			cin>>age;
+			cout<<"Enter salary:";
+			cin>>salary;
+		}
+		void showdata()
+		{
+			cout<<"Enter details are:"<<endl;
+			cout<<"Name: "<<name<<endl<<"ID: "<<empid<<endl<<"Age: "<<age<<endl<<"Salary: "<<salary;
+		}
+};
+int main()
+{
+	employee emp1;
+	emp1.getdata();
+	emp1.showdata();
+	return 0;
+}
+
+.....................................................................................................
+/*(Multiple Inheritance) Create two classes Theory and Practical, each storing marks out of 100.
+Derive a class Result from both, which computes and displays total and percentage.*/
+#include<iostream>
+using namespace std;
+class theory{
+	protected:
+	static int mark1;
+};
+
+class practical{
+	protected:
+	static int mark2;
+};
+
+int theory::mark1=70;
+int practical::mark2=52;
+
+class result:public theory,public practical{
+	float total,percent;
+	public:
+		void calc()
+		{
+		total=mark1+mark2;
+		percent=(total/200)*100;	
+		}
+		
+		void display()
+		{
+			cout<<"Total Mark="<<total<<endl;
+			cout<<"Percent="<<percent<<"%";
+		}
+};
+int main()
+{
+	result obj;
+	obj.calc();
+	obj.display();
+	return 0;
+}
+..............................................................................
+/*(Hierarchical Inheritance) Create a base class Shape with a method getData(). Derive Circle and
+Rectangle classes from it, each computing their own area.*/
+#include<iostream>
+#define pie 3.1415
+using namespace std;
+class shape{
+	protected:
+	float r;
+	float l,b;
+	float ar1,ar2;
+		
+		void getdata1()
+		{
+			cout<<"Enter radius of circle:";
+			cin>>r;
+		}
+		void getdata2()
+		{
+			cout<<"Enter length and breadth of rectangle:";
+			cin>>l>>b;
+		}
+};
+
+class circle:public shape{
+	public:
+		void compute()
+		{
+			getdata1();
+			ar1=pie*r*r;
+			showdata();
+		}
+		void showdata()
+		{
+			cout<<"The area of circle="<<ar1<<endl;
+		}
+};
+
+class rectangle:public shape{
+	public:
+		void compute()
+		{
+			getdata2();
+			ar2=l*b;
+			showdata();
+		}
+		void showdata()
+		{
+			cout<<"The area of rectangle="<<ar2;
+		}	
+};
+int main()
+{
+	circle obj1;
+	obj1.compute();
+	rectangle obj2;
+	obj2.compute();
+	return 0;
+}
+...............................................................................................
+/*(Multilevel Inheritance) Create a class Student (roll, name) ? derive Marks(three subject marks)
+? derive Result (computes total and percentage). Test with a main() function.
+*/
+#include<iostream>
+#include<string>
+using namespace std;
+class student{
+	protected:
+		int roll;
+		string name;		
+};
+
+class marks:protected student{
+	protected:
+		float m1,m2,m3;
+		public:
+			void getdata()
+			{	
+				cout<<"Enter student name:";
+				getline(cin,name);
+				cout<<"Enter roll no:";
+				cin>>roll;
+				cout<<"Enter marks of three subject:";
+				cin>>m1>>m2>>m3;
+			}
+};
+
+class result:protected marks{
+	float total;
+	float percent;
+	public:
+	void compute(){
+		getdata();
+		total=m1+m2+m3;
+		percent=(total/300)*100;
+	}
+	void display()
+	{
+		cout<<"Student Name: "<<name<<endl;
+		cout<<"Roll No: "<<roll<<endl;
+		cout<<"Total Marks: "<<total<<endl;
+		cout<<"Percentage: "<<percent<<"%";
+	}
+}; 
+int main()
+{
+	result obj;
+	obj.compute();
+	obj.display();
+	return 0;
+}
+
+....................................................................................................
+/*(Hybrid Inheritance) Create classes Person ? Student and Person ? Exam, then derive
+Result class from both Student and Exam. Display all details in one output.
+*/
+#include<iostream>
+#include<string>
+using namespace std;
+class person{
+	protected:
+		string name;
+		public:
+		void getdata1(){
+			cout<<"Enter your name:";
+			getline(cin,name);
+		}
+};
+
+class student:public person{
+	protected:
+	int roll;
+	string level;
+	public:
+	void getdata2(){
+		cout<<"Enter your roll no:";
+		cin>>roll;
+		cin.ignore();
+		cout<<"Enter your class level:";
+		getline(cin,level);
+	}
+};
+
+class exam{
+	protected:
+	float mark;
+	float percent;
+	public:
+		void getdata3()
+		{
+			cout<<"Enter your total marks of 5 subject:";
+			cin>>mark;
+		}
+		void calc()
+		{
+			percent=(mark/500)*100;
+		}
+};
+
+class result:public student,public exam{
+	public:
+		void display()
+		{
+			cout<<"Person name: "<<name<<endl;
+			cout<<"Roll no: "<<roll<<endl;
+			cout<<"Class level: "<<level<<endl;
+			cout<<"Total mark: "<<mark<<endl;
+			cout<<"Percentage: "<<percent<<"%";
+		}
+};
+int main()
+{
+	result obj;
+	obj.getdata1();
+	obj.getdata2();
+	obj.getdata3();
+	obj.calc();
+	obj.display();
+    return 0;
+}
+
+3.Lab 3: Overriding, Constructors & Destructors..................................................................
+/*Create a base class Animal with a method sound() that prints a generic message. Override sound()
+in a derived class Dog. In main(), call both the derived and base class versions of sound() using
+the same object (obj.sound() and obj.Animal::sound()).
+*/
+#include<iostream>
+#include<string>
+using namespace std;
+class animal{
+	public:
+		void sound(){
+			cout<<"loud";
+		}
+};
+
+class dog:public animal{
+	public:
+		void sound(){
+			cout<<"bark";
+		}	
+};
+int main()
+{
+	dog obj;
+	obj.sound();
+	cout<<endl;
+	obj.animal::sound();
+	return 0;
+}
+
+......................................................................................................................
+/*Create a base class A and derived class B, each with a parameterized constructor. Show how the
+derived class constructor passes values to the base class constructor using an initializer list.
+*/
+#include<iostream>
+using namespace std;
+class A{
+	protected:
+		int a,b,c,d;
+	public:
+		A(int x,int y)
+		{
+			a=x;
+			b=y;
+		}
+};
+
+class B:public A{
+	public:
+		B(int x,int y):A(2,3)
+		{
+			c=x;
+			d=y;
+		}
+		void display(){
+			cout<<"value of a,b from base class constructor: "<<a<<","<<b<<endl;
+			cout<<"Value of c,d from child class constructor: "<<c<<","<<d;
+		}
+};
+int main()
+{
+	B obj(4,5);
+	obj.display();
+	return 0;
+}
+
+.......................................................................................................
+/*qn10 Write a program with three classes A, B (derived from A), and C (derived from B) — each having
+a constructor and destructor that prints a message. Create an object of C in main() and explain the
+order of execution of constructors and destructors.
+*/
+#include<iostream>
+using namespace std;
+class A{
+	public:
+		A()
+		{
+			cout<<"Base class A constructor called."<<endl;
+		}
+		~ A(){
+			cout<<"Base class A destructor called."<<endl;
+		}
+};
+
+class B:public A{
+	public:
+		B()
+		{
+			cout<<"Base class B constructor called."<<endl;
+		}
+		~ B(){
+			cout<<"Base class B destructor called."<<endl;
+		}
+};
+
+class C:public B{
+	public:
+		C()
+		{
+			cout<<"Base class C constructor called."<<endl;
+		}
+		~ C(){
+			cout<<"Base class C destructor called."<<endl;
+		}
+};
+int main()
+{
+	C obj;
+	return 0;
+}
+
+................................................................................................................
+/*Modify Q10 to use multiple inheritance (C derived from both B and A) and explain how the
+constructor/destructor call order changes.
+*/
+#include<iostream>
+using namespace std;
+class A{
+	public:
+		A()
+		{
+			cout<<"Base class A constructor called."<<endl;
+		}
+		~ A(){
+			cout<<"Base class A destructor called."<<endl;
+		}
+};
+
+class B{
+	public:
+		B()
+		{
+			cout<<"Base class B constructor called."<<endl;
+		}
+		~ B(){
+			cout<<"Base class B destructor called."<<endl;
+		}
+};
+
+class C:public B,public A{
+	public:
+		C()
+		{
+			cout<<"Base class C constructor called."<<endl;
+		}
+		~ C(){
+			cout<<"Base class C destructor called."<<endl;
+		}
+};
+int main()
+{
+	C obj;
+	return 0;
+}
+
+4.Lab 4: Ambiguity in Inheritance........................................................
+/*Create two base classes A and B, each with a function display() having the same signature. Derive
+a class C from both. Show:
+• The compiler error when calling obj.display() directly.
+• Two ways to resolve the ambiguity (scope resolution operator, and overriding in the derived
+class).
+*/
+#include<iostream>
+using namespace std;
+class A{
+	public:
+	void display()
+	{
+		cout<<"Base class A display function"<<endl;
+	}
+};
+
+class B{
+	public:
+		public:
+	void display()
+	{
+		cout<<"Base class B display function"<<endl;
+	}
+};
+
+class C:public B,public A{
+	public:
+	void display()
+	{
+		cout<<"Derived class C display function"<<endl; //overrides base class function display
+	}
+};
+int main()
+{
+	C obj;
+	obj.display();
+	obj.A::display();
+	obj.B::display();
+	return 0;
+}
+
+................................................................................................................
+/*Demonstrate the diamond problem (multipath inheritance): create class A, derive B and C from
+A, and derive D from both B and C. Show the ambiguity when accessing a member of A through
+D, then fix it using virtual base classes.
+*/
+#include<iostream>
+using namespace std;
+class A{
+	public:
+	void display()
+	{
+		cout<<"Base class A display function called by solving ambiguity using virtual keyword";
+	}
+};
+
+class B:virtual public A{
+	
+};
+
+class C:virtual public A{
+	
+};
+
+class D:public B,public C{
+	
+};
+int main()
+{
+	D obj;
+	obj.display();
+	return 0;
+}
+
+5.Lab 5: Aggregation (Containership).............................................................
+/*15. Create a class Engine with attributes like horsepower. Create a class Car that contains an object
+of Engine as a member (has-a relationship), along with its own attributes like model. Write
+getdata() and display() functions in Car that also call the corresponding functions of the Engine
+object.
+*/
+#include<iostream>
+using namespace std;
+class engine{
+	protected:
+		int data;
+	public:
+		void info(){
+			cout<<"Enter Horsepower: ";
+			cin>>data;
+		}
+		void show(){
+			cout<<data;
+		}
+};
+class car{
+	int model;
+	engine obj;
+	public:
+		void getdata()
+		{
+		obj.info();
+		cout<<"Enter Model: ";
+		cin>>model;	
+		}
+		void display(){
+			cout<<"The car details are:"<<endl;
+			cout<<"Horsepower=";
+			obj.show();
+			cout<<endl;
+			cout<<"Model="<<model;
+		}
+};
+int main()
+{
+	car obj1;
+	obj1.getdata();
+	obj1.display();
+	return 0;
+}

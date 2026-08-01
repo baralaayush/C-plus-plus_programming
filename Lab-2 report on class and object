@@ -1,0 +1,804 @@
+1.	Objective: Understand class definition, object creation, and member functions. Create a class Student with: Roll Number, Name, Semester and Functions: getdata(), displaydata().
+Ans:
+#include<iostream>
+using namespace std;
+class student{
+	int roll_no;
+	string name;
+	string semester;
+	public:
+	void getdata()
+	{
+		cout<<"Enter roll no of student:";
+		cin>>roll_no;
+		cin.ignore();
+		cout<<"Enter Name:";
+		getline(cin,name);
+		cout<<"Enter Semester:";
+		getline(cin,semester);
+	}
+	void display()
+	{
+		cout<<"The output data is:"<<endl;
+		cout<<"Roll No\t Name\t Semester\n";
+		cout<<roll_no<<"\t"<<name<<"\t"<<semester<<endl;
+	}
+};
+int main()
+{
+	student a;
+	a.getdata();
+	a.display();
+	return 0;
+}
+ 
+2.	Objective: Understand class definition, object creation, and member functions. Create a class Rectangle to calculate: Area, Perimeter and Create a class Circle to calculate: Area, Circumference.
+Ans:
+#include<iostream>
+using namespace std;
+#define Pie 3.14
+class rectangle{
+	float l,b,peri,ar;
+	public:
+	void getdata()
+	{
+		cout<<"Enter length of rectangle:";
+		cin>>l;
+		cout<<"Enter breadth of rectangle:";
+		cin>>b;
+	}
+	void display()
+	{	
+		peri=2*(l+b);
+		ar=l*b;
+		cout<<"The perimeter and area of rectangle is:";
+		cout<<peri<<","<<ar<<endl;
+	}
+}r;
+
+class circle
+{
+float r;
+float ar,cr;
+public:
+	void getdata()
+	{
+		cout<<"Enter radius of circle:";
+		cin>>r;
+	}
+	void display()
+	{	
+		cr=2*Pie*r;
+		ar=Pie*r*r;
+		cout<<"The area and circumference of circle is:";
+		cout<<ar<<","<<cr<<endl;
+	}
+}c;
+int main()
+{
+	r.getdata();
+	c.getdata();
+	r.display();
+	c.display();
+	return 0;
+}
+ 
+3.	Objective: Learn private, public, and protected members. Create a class BankAccount with: Account Number, Account Holder Name, Balance and Implement: Deposit(), Withdraw(), Display().
+Ans:
+#include<iostream>
+using namespace std;
+class bankaccount{
+	long long int accno;
+	string accname;
+	float balance;
+	public:
+	bankaccount()
+	{
+		accno=128100010001000;
+		accname="Aayush Baral";
+		balance=50000;
+	}
+	void deposit()
+	{	int d;
+		cout<<"Enter deposit amount:";
+		cin>>d;
+		balance=balance+d;
+	}
+	void withdraw()
+	{	
+		int w;
+		cout<<"Enter withdraw amount:";
+		cin>>w;
+		balance=balance-w;
+	}
+	void display()
+	{
+		cout<<"The information are:"<<endl;
+		cout<<"Account Number: "<<accno<<endl;
+		cout<<"Holder Name: "<<accname<<endl;
+		cout<<"Balance: "<<balance;
+	}
+}b;
+int main()
+{
+	char c;
+	cout<<"choose your requirement (d/w) for deposit or withdraw:";
+	cin>>c;
+	switch(c)
+	{
+		case 'd':
+		b.deposit();	
+		b.display();
+		break;
+		
+		case 'w':
+		b.withdraw();
+		b.display();	
+		break;
+		
+		default:
+		cout<<"Invalid operator";		
+	}
+	return 0;
+}
+
+4.	Objective: Define member functions inside and outside the class. Create a class Book with: Book ID, Title, Author, Price and Define: getData(), display() outside the class using the scope resolution operator and keep it inline.
+Ans:
+#include<iostream>
+using namespace std;
+class book
+{
+	int bookid;
+	string title;
+	string author;
+	float price;
+public:
+	void getData();
+	void display();
+}a;
+
+inline void book::getData()
+{
+	cout<<"Enter the book id of the book:";
+	cin>>bookid;
+	cout<<"Enter the title of the book:";
+	cin.ignore();
+	getline(cin,title);
+	cout<<"Enter the author of the book:";
+	getline(cin,author);
+	cout<<"Enter the price of the book:";
+	cin>>price;
+}
+
+inline void book::display()
+{
+	cout<<"The detail of the given book are:";
+	cout<<bookid<<endl;
+	cout<<title<<endl;
+	cout<<author<<endl;
+	cout<<price<<endl;
+}
+int main()
+{
+a.getData();
+a.display();	
+return 0;
+}
+
+5.	Objective: Learn function calling within the same class (ie.nested function). Create a class Number that: Accepts an integer, Checks whether it is positive or negative, Checks whether it is even or odd, Calls one member function from another. 
+Create a class Result that: Stores marks of five subjects, Calculates total and percentage, Displays grade by calling grade() from displayResult().
+Ans:
+#include<iostream>
+using namespace std;
+class number{
+	int n;
+	void check()
+	{
+		if(n>0)
+		cout<<"positive";
+		else if(n<0)
+		cout<<"negative";
+		else
+		cout<<"zero";
+		
+		cout<<" and ";
+		
+		if(n%2==0)
+		cout<<"even";
+		else
+		cout<<"odd";
+	}
+	public:
+	void display()
+	{	
+		cout<<"Enter any number";
+		cin>>n;
+		cout<<"The entered number is ";
+		check();
+	}
+}n;
+int main()
+{
+	n.display();
+	return 0;
+}
+
+...........................................................................................................................
+Ans:
+#include<iostream>
+using namespace std;
+class result{
+	int m[5];
+	float total,percent;
+	void grade()
+	{	int i;
+		for(i=0; i<5; i++)
+		{
+			total=total+m[i];
+		}
+		percent=(total/500)*100;
+		cout<<"Total mark="<<total<<endl;
+		cout<<"Percentage="<<percent;
+	}
+	public:
+	result()
+	{	
+		total=0;
+		m[0]=78;
+		m[1]=41;
+		m[2]=89;
+		m[3]=99;
+		m[4]=65;	
+	}
+	void displayresult()
+	{	
+		cout<<"The result is:"<<endl;
+		grade();
+}
+}n;
+int main()
+{
+	n.displayresult();
+	return 0;
+}
+
+6.	Objective: Understand different types of constructors. Write a program to demonstrate: Default constructor, Create a Student class using a parameterized constructor. Create a Rectangle class using parameterized constructor to calculate area. Create a Complex Number class and initialize values using constructor. 
+Ans:
+#include<iostream>
+using namespace std;
+class student{
+	int id;
+	int age;
+	public:
+	student()
+	{
+		id=0;
+		age=0;
+	}
+	student(int x,int y)
+	{
+		id=x;
+		age=y;
+	}
+	void display()
+	{
+		cout<<"The value of a and b are: "<<id<<","<<age<<endl;
+	}
+	
+};
+
+class rectangle{
+	float l,b;
+	public:
+	rectangle(){
+		l=0;
+		b=0;
+	}
+	rectangle(float x, float y)
+	{
+		l=x;
+		b=y;
+	}
+	void display(){
+		float ar=2*(l+b);
+		cout<<"The area of rectangle is: "<<ar<<endl;
+	}
+};
+
+class complexno{
+	int real;
+	double img;
+	public:
+		complexno()
+		{
+			real=0;
+			img=0;
+		}
+		complexno(int x, int y)
+		{
+			real=x;
+			img=y;
+		}
+		void display()
+		{
+			cout<<"Real part="<<real<<" and "<<"Imaginary part="<<img<<"i";
+		}
+};
+int main()
+{
+	student obj1;
+	student obj2(101,20);
+	cout<<"Student default contructor"<<endl;
+	obj1.display();
+	cout<<"Student parameterized contructor"<<endl;
+	obj2.display();
+	cout<<endl;
+	rectangle obj3(10.12,8);
+	cout<<"Rectangle parameterized contructor"<<endl;
+	obj3.display();
+	cout<<endl;
+	complexno obj4(12,5.6);
+	cout<<"Complex number parameterized contructor"<<endl;
+	obj4.display();
+	return 0;
+}
+
+7.	Objective: Learn constructor overloading. Create a class Box having: Default constructor, Constructor with one argument (cube), Constructor with three arguments (cuboid) and display volume in each case.
+Ans:
+#include<iostream>
+#include<math.h>
+using namespace std;
+class box{
+	float l,b,h;
+	float vol;
+	public:
+	box(){
+		l=0;
+		b=0;
+		h=0;
+	}
+	box(float x){
+		l=x;
+		vol=pow(l,3);
+	}
+	box(float x,float y,float z){
+		l=x;
+		b=y;
+		h=z;
+		vol=l*b*h;
+	}
+	
+	display(){
+		cout<<"The volume is:"<<vol<<endl;
+	}
+};
+int main()
+{
+	box cube;
+	box cube1(10.5);
+	cube1.display();
+	box cuboid;
+	box cuboid1(13,15.5,20);
+	cuboid1.display(); 
+	return 0;
+}
+
+8.	Objective: Demonstrate copy constructor and destructor. Create a class Distance: Read feet and inches. Copy one object into another using copy constructor. Create a class Student. Display message when constructor is called. Display message when destructor is called. Observe the order of constructor and destructor execution.
+Ans:
+#include <iostream>
+using namespace std;
+class Distance {
+    float feet, inches;
+public:
+   	 Distance() 
+    	{ 
+   	 feet=0;
+    	inches=0;
+    	}
+    	Distance(Distance &r) {
+       	feet = r.feet;
+        	inches = r.inches;
+    	}
+    	void getdata() {
+        	cout << "Enter feet and inches: ";
+        	cin >> feet >> inches;
+    	}
+    	void showdata() {
+        	cout << "Feet: " << feet << ", Inches: " << inches << endl;
+    	}
+};
+int main() {
+    Distance obj1;
+    obj1.getdata();
+    cout << "Displaying obj1:" << endl;
+    obj1.showdata();
+    Distance obj2(obj1);
+    cout << "Displaying obj2 (copied from obj1):" << endl;
+    obj2.showdata();
+    return 0;
+}
+
+...........................................................................................................................
+Ans:
+#include <iostream>
+#include <string>
+using namespace std;
+class Student {
+    int roll;
+    string name;
+public:
+    Student()
+    	{
+    	roll=0;
+    	name="";
+     	}
+    Student(Student &r) {
+        roll = r.roll;
+        name = r.name;
+        cout << "Copy constructor called" << endl;
+    	}
+    void getdata() {
+        cout << "Enter roll: ";
+        cin >> roll;
+        cout << "Enter name: ";
+        cin >> name;
+    }
+    ~Student() {
+        cout << "Destructor called"<<endl;
+    }
+};
+int main() 
+{
+    Student obj1;
+    obj1.getdata();
+    Student obj2(obj1);
+    return 0;
+}
+
+9.	Objective: Understand static members. Create a class Student that keeps track of: Roll Number, Name, Maintain total number of students using a static variable. Create a static member function to display total students. Demonstrate that static data is shared among all objects.
+Ans:
+#include<iostream>
+#include<string>
+using namespace std;
+class student{
+	static int count;
+	int roll;
+	string name;
+	public:
+	void getdata()
+	{
+		cout<<"Enter Roll No of student:";
+		cin>>roll;
+		cin.ignore();
+		cout<<"Enter name of student:";
+		cin>>name;
+		count++;
+	}
+	static void display()
+	{
+		cout<<"Total Student="<<count<<endl; 
+	}
+	void showdata()
+	{
+		cout<<"Roll NO:"<<roll<<endl;
+		cout<<"Name:"<<name<<endl;
+	}
+};
+int student::count=0;
+int main()
+{ 
+	int i;
+	student t[5];
+	for(i=0; i<5; i++)
+	{
+		t[i].getdata();
+	}
+	for(i=0; i<5; i++)
+	{
+		t[i].showdata();
+	}
+    cout << "Accessing static function via class name: ";
+    student::display();
+
+    cout << "Accessing static function via object t[0]: ";
+    t[0].display();
+   
+    cout << "Accessing static function via object t[4]: ";
+    t[4].display();
+	return 0;
+}
+
+10.	Objective: Pass objects to functions. Create a class Time. Pass two objects to a function and add them. Create a class Complex. Add two complex numbers using: Pass by Value, Pass by Reference, Pass by Pointer. Compare the three methods.
+Ans:
+#include<iostream>
+using namespace std;
+class time{
+	int a,b;
+	public:
+		time(){
+			a=0;
+			b=0;
+		}
+		time(int x,int y)
+		{
+			a=x;
+			b=y;
+		}
+		void add(time t1,time t2)
+		{
+			a=t1.a+t2.a;
+			b=t1.b+t2.b;
+		}
+		void show()
+		{
+			cout<<"The value of a and b are:"<<a<<","<<b;
+		}
+};
+int main()
+{
+	time o1(5,10);
+	time o2(15,20);
+	time o3;
+	o3.add(o1,o2);
+	o3.show();
+	return 0;
+}
+
+...........................................................................................................................
+Ans:
+//pass by value
+#include<iostream>
+using namespace std;
+class complex{
+	int real;
+	int img;
+	public:
+	complex()
+	{
+		real=0;
+		img=0;	
+	}
+	complex(int x,int y)
+	{
+		real=x;
+		img=y;
+	}
+	void addcomplex(complex t1,complex t2)
+	{
+		real=t1.real+t2.real;
+		img=t1.img+t2.img;
+		}
+	void show()
+	{
+		cout<<"The complex number is="<<real<<"+"<<img<<"i";
+		}	
+};
+int main()
+{
+	complex obj1(2,3);
+	complex obj2(4,5);
+	complex obj3;
+	obj3.addcomplex(obj1,obj2);
+	obj3.show();
+	return 0;
+}
+...........................................................................................................................
+//pass by reference
+#include<iostream>
+using namespace std;
+class complex{
+	int real;
+	int img;
+	public:
+	complex()
+	{
+		real=0;
+		img=0;	
+	}
+	complex(int x,int y)
+	{
+		real=x;
+		img=y;
+	}
+	void addcomplex(complex &t1,complex &t2)
+	{
+		real=t1.real+t2.real;
+		img=t1.img+t2.img;
+		}
+	void show()
+	{
+		cout<<"The complex number is="<<real<<"+"<<img<<"i"; }	
+};
+int main()
+{
+	complex obj1(2,3);
+	complex obj2(4,5);
+	complex obj3;
+	obj3.addcomplex(obj1,obj2);
+	obj3.show();
+	return 0;
+}
+...........................................................................................................................
+//pass by pointer
+#include<iostream>
+using namespace std;
+class complex{
+	int real;
+	int img;
+	public:
+	complex()
+	{
+		real=0;
+		img=0;	
+	}
+	complex(int x,int y)
+	{
+		real=x;
+		img=y;
+	}
+	void addcomplex(complex *t1,complex *t2)
+	{
+		real=t1->real+t2->real;
+		img=t1->img+t2->img;
+		}
+	void show()
+	{
+		cout<<"The complex number is="<<real<<"+"<<img<<"i";
+	}	
+};
+int main()
+{
+	complex obj1(2,3);
+	complex obj2(4,5);
+	complex obj3;
+	obj3.addcomplex(&obj1,&obj2);
+	obj3.show();
+	return 0;
+}
+
+11.	Objective: Return objects from functions. Create a class Complex Number. Return the sum of two objects. And Create a class Distance. Return the larger distance object by performing return by value, reference and pointer method.
+Ans:
+#include<iostream>
+using namespace std;
+class complex{
+	int real;
+	int img;
+	public:
+	complex()
+	{
+		real=1;
+		img=1;	
+	}
+	complex(int x,int y)
+	{
+		real=x;
+		img=y;
+	}
+	complex addcomplex(complex t1,complex t2)
+	{
+		complex temp;
+		temp.real=real+t1.real+t2.real;
+		temp.img=real+t1.img+t2.img;
+		return temp;	
+	}
+	void show()
+	{
+		cout<<"The complex number is="<<real<<"+"<<img<<"i";
+		}	
+};
+int main()
+{
+	complex obj1(9,3);
+	complex obj2(9,4);
+	complex obj3;
+	obj3=obj3.addcomplex(obj1,obj2);
+	obj3.show();
+	return 0;
+}
+
+...........................................................................................................................
+Ans:
+//return by value
+#include<iostream>
+using namespace std;
+class Distance{
+	int l;
+	public:
+		Distance()
+		{
+			l=1; }
+		Distance(int x)
+		{
+			l=x; 
+}
+		Distance larger(Distance t1,Distance t2)
+		{
+			if(t1.l>t2.l)
+			return t1;
+			else
+			return t2;
+		}
+		void show()
+		{
+			cout<<"The larger distance is="<<l;
+		}
+};
+int main()
+{
+	Distance o1(10);
+	Distance o2(20);
+	Distance o3;
+	o3=o3.larger(o1,o2);
+	o3.show();
+	return 0;
+}
+...........................................................................................................................
+//return by reference
+#include<iostream>
+using namespace std;
+class Distance{
+	int l;
+	public:
+		Distance()
+		{
+			l=1;
+		}
+		Distance(int x)
+		{
+			l=x;
+		}
+		Distance &larger(Distance &t1,Distance &t2)
+		{
+			if(t1.l>t2.l)
+			return t1;
+			else
+			return t2; }
+		void show()
+		{
+			cout<<"The larger distance is="<<l;
+		}
+};
+int main()
+{
+	Distance o1(10);
+	Distance o2(20);
+	Distance o3;
+	o3=o3.larger(o1,o2);
+	o3.show();
+	return 0;
+}
+...........................................................................................................................
+//return by pointer
+#include<iostream>
+using namespace std;
+class Distance{
+	int l;
+	public:
+		Distance()
+		{
+			l=1;
+		}
+		Distance(int x)
+		{
+			l=x;
+		}
+		Distance *larger(Distance *t1,Distance *t2)
+		{
+			if(t1->l>t2->l)
+			return t1;
+			else
+			return t2;
+		}
+		void show()
+		{
+			cout<<"The larger distance is="<<l; }
+};
+int main()
+{
+	Distance o1(10);
+	Distance o2(20);
+	Distance o3;
+	o3=*o3.larger(&o1,&o2);
+	o3.show();
+	return 0;
+}

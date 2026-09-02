@@ -1,0 +1,931 @@
+/*1. Write a program to overload the unary minus (--) operator for a class Number having one data member, so that -n1 changes the sign of the value*/
+
+#include<iostream>
+using namespace std;
+class number{
+	int a;
+	public:
+		number()
+		{
+		a=10;
+		}
+		void operator --()
+		{
+			a=-a; 
+		}
+		void display(){
+			cout<<a<<endl;
+		}
+};
+int main()
+{
+	number n1;
+	cout<<"The value of a before operator overloading is:"<<endl;
+	n1.display();
+	--n1;
+	cout<<"The value of a after operator overloading is:";
+	n1.display();
+	return 0;
+}
+
+
+/*2. Write a program to overload the prefix increment (++) operator for a class Counter having one data member count.*/
+
+#include<iostream>
+using namespace std;
+class counter{
+	int count;
+	public:
+		counter()
+		{
+		count=12;
+		}
+		void operator ++()
+		{
+			count++; 
+		}
+		void display(){
+			cout<<count<<endl;
+		}
+};
+int main()
+{
+	counter c;
+	cout<<"The value of count before operator overloading is:"<<endl;
+	c.display();
+	++c;
+	cout<<"The value of count after operator overloading is:";
+	c.display();
+	return 0;
+}
+
+
+/*3. Write a program to overload the postfix decrement (--) operator for the same Counter class.*/
+
+#include<iostream>
+using namespace std;
+class counter{
+	int count;
+	public:
+		counter()
+		{
+		count=12;
+		}
+		void operator --(int)
+		{
+			count--; 
+		}
+		void display(){
+			cout<<count<<endl;
+		}
+};
+int main()
+{
+	counter c;
+	cout<<"The value of count before operator overloading is:"<<endl;
+	c.display();
+	c--;
+	cout<<"The value of count after operator overloading is:";
+	c.display();
+	return 0;
+}
+
+
+/*4. Write a program to add two distances (feet and inches) using operator overloading 
+(overload the + operator for a class Distance).*/
+
+#include<iostream>
+using namespace std;
+class Distance{
+	float feet;
+	float inches;
+	float total;
+	public:
+		Distance()
+		{
+		feet=0;
+		inches=0;
+		total=0;
+		}
+		
+		Distance(int x,int y)
+		{
+		feet=x;
+		inches=y;
+		}
+		
+		Distance operator +(Distance t)
+		{
+			Distance temp;
+			temp.total=t.feet+inches/12;
+			return temp; 
+		}
+		void display(){
+			cout<<"Total="<<total;
+		}
+};
+int main()
+{
+	Distance x(10,7);
+	Distance y(11,9);
+	Distance z;
+	z=x+y;
+	z.display();
+	return 0;
+}
+
+
+/*5.Write a program to subtract two distances (feet and inches) using operator overloading.*/
+
+#include<iostream>
+using namespace std;
+class Distance{
+	int feet;
+	int inches;
+	float total;
+	public:
+		Distance(){
+			feet=0;
+			inches=0;
+			total=0;
+		}
+		
+		Distance(int x,int y,int z=0){
+			feet=x;
+			inches=y;
+			total=z;
+		}
+		
+		Distance operator -(Distance d2){
+			Distance d;
+			d.feet=feet-d2.feet;
+			d.inches=inches-d2.inches;
+			return d;
+		}
+		
+		void display(){
+			cout<<"Feet="<<feet<<endl;
+			cout<<"Inches="<<inches<<endl;
+		}
+};
+int main()
+{
+	Distance d1(10,11);
+	Distance d2(3,4);
+	Distance d3;
+	d3=d1-d2;
+	cout<<"After operator overloading for subtraction"<<endl;
+	d3.display();
+	return 0;
+}
+
+
+/*6. Write a program to add two complex numbers using operator overloading (overload + for a class Complex with real and imag).*/
+
+#include<iostream>
+using namespace std;
+class complex{
+	int real;
+	int img;
+	public:
+	complex(){
+		real=0;
+		img=0;
+	}
+	complex(int x,int y)
+	{
+		real=x;
+		img=y;
+	}
+	complex operator +(complex c){
+		int r,i;
+		r=real+c.real;
+		i=img+c.img;
+		return complex(r,i);
+	}
+	void display(){
+		cout<<"The result complex number is:"<<real<<"+"<<img<<"i";
+	}
+};
+int main()
+{
+	complex c1(20,13);
+	complex c2(30,12);
+	complex c3;
+	c3=c1+c2;
+	c3.display();
+	return 0;
+}
+
+
+/*8. Write a program to multiply two complex numbers using operator overloading (overload * for a class Complex with real and imag).*/
+
+#include<iostream>
+using namespace std;
+class complex{
+	int real;
+	int img;
+	public:
+	complex(){
+		real=0;
+		img=0;
+	}
+	complex(int x,int y)
+	{
+		real=x;
+		img=y;
+	}
+	complex operator *(complex c){
+		int r,i;
+		r=real*c.real;
+		i=img*c.img;
+		return complex(r,i);
+	}
+	void display(){
+		cout<<"The result complex number is:"<<real<<"+"<<img<<"i";
+	}
+};
+int main()
+{
+	complex c1(12,3);
+	complex c2(14,12);
+	complex c3;
+	c3=c1*c2;
+	c3.display();
+	return 0;
+}
+
+
+/*9. Write a program to compare two distances (feet and inches) using the overloaded < operator and print which one is smaller.*/
+
+#include<iostream>
+using namespace std;
+class Distance{
+	int feet;
+	int inches;
+	public:
+		void getdata(){
+			cout<<"Enter feet and inches:";
+			cin>>feet>>inches;
+		}
+		
+		int operator <(Distance d){
+			if(feet<d.feet)
+			return 1;
+			else if(feet==d.feet && inches<d.inches)
+			return 1;
+			else
+			return 0;
+		}
+		void display(){
+			cout<<"Feet ="<<feet<<endl;
+			cout<<"Inches ="<<inches;
+		}
+};
+int main(){
+	Distance d1,d2;
+	d1.getdata();
+	d2.getdata();
+	cout<<"The smallest distance is:"<<endl;
+	if(d1<d2){
+	d1.display();	
+	}
+	else
+	{
+		d2.display();
+	}
+	return 0;
+}
+
+
+/*10. Write a program to compare two time values (hour and minute) using the overloaded == operator and check if they are equal.*/
+
+#include<iostream>
+using namespace std;
+class time{
+	int hrs;
+	int min;
+	public:
+		time(){
+			hrs=0;
+			min=0;
+		}
+		time(int x,int y){
+			hrs=x;
+			min=y;
+		}
+		int operator ==(time t){
+			if(hrs==t.hrs && min==t.min)
+			return 1;
+			else 
+			return 0;
+		}
+};
+int main()
+{
+	time t1(1,34);
+	time t2(1,34);
+	if(t1==t2)
+	cout<<"The time is equal";
+	else
+	cout<<"The time is not equal";
+	return 0;
+}
+
+
+/*11. Write a program to overload the assignment (=) operator for a class Distance to copy the values of one object into another.*/
+
+#include<iostream>
+using namespace std;
+class Distance{
+	float l;
+	float b;
+	public:
+		Distance(){
+			l=0;
+			b=0;
+		}
+		Distance(float x,float y){
+			l=x;
+			b=y;
+		}
+		void operator =(Distance d){
+			l=d.l;
+			b=d.b;
+		}
+		void display()
+		{
+			cout<<"Length="<<l<<endl;
+			cout<<"Breadth="<<b<<endl;
+		}
+};
+int main(){
+	Distance d1(12.34,45.23);
+	Distance d2;
+	cout<<"Before operator overloading"<<endl;
+	d2.display();
+	d2=d1;
+	cout<<"Before operator overloading"<<endl;
+	d2.display();
+	return 0;
+}
+
+
+/*12. Write a program to convert a basic data type (float, meters) into a user-defined object (Distance in feet and inches) using a constructor.*/
+
+#include<iostream>
+using namespace std;
+class Distance{
+	int feet;
+	int inches;
+	public:
+	Distance(){
+		feet=0;
+		inches=0;
+	}
+	Distance(float meter){
+		inches=meter*39.37;
+		feet=inches/12;
+		inches=inches%12;
+	}		
+	void display(){
+		cout<<"Feet="<<feet<<endl;
+		cout<<"Inches="<<inches;
+	}
+};
+int main(){
+	float meters;
+	cout<<"Enter meters:";
+	cin>>meters;
+	Distance d=meters;
+	cout<<"After converted basic to userdefine:\n";
+	d.display();
+	return 0;
+}
+
+
+/*13. Write a program to convert a user-defined object (Distance) into a basic data type (float) using an overloaded cast operator.*/
+
+#include<iostream>
+using namespace std;
+class Distance{
+	int cm;
+	public:
+		Distance(){
+			cm=0;
+		}
+		Distance(int x){
+			cm=x;
+		}
+		
+		operator float (){
+		float m;
+		m=(float)cm/100;
+		return m;
+		}
+};
+int main()
+{	float meter;
+	Distance d(1189);
+	meter=(float)d;
+	cout<<"meter="<<meter;
+	return 0;
+}
+
+
+/*14. Write a program to convert an object of one class into another class object using a conversion function defined in the source class.*/
+
+#include<iostream>
+using namespace std;
+class Distance1{
+	float m;
+	public:
+		Distance1(){
+			m=0;
+		}
+		Distance1(float x){
+			m=x;
+		}
+		void display(){
+			cout<<"Meter ="<<m;
+		}
+};
+
+class Distance2{
+	int cm;
+	public:
+		Distance2(){
+			cm=0;
+		}
+		Distance2(int x)
+		{
+			cm=x;
+		}
+		operator Distance1(){
+			float m;
+			m=(float)cm/100;
+			return Distance1(m);
+		}
+};
+int main()
+{	
+	Distance1 d1;
+	Distance2 d2(1179);
+	d1=d2;
+	d1.display();
+	return 0;
+}
+
+
+/*15. Write a program to convert temperature from Celsius to Fahrenheit using operator overloading / type conversion (convert an object of class Celsius to an object of class Fahrenheit).*/
+
+#include<iostream>
+using namespace std;
+class celsius{
+	float deg;
+	public:
+		celsius(){
+			deg=0;
+		}
+		celsius(float x){
+			deg=x;
+		}
+		float senddata(){
+			return deg;
+		}
+};
+class fahreheit{
+	float fah;
+	public:
+		fahreheit(){
+			fah=0;
+		}
+		fahreheit(celsius c){
+			float d=c.senddata();
+			float f=(d*1.8)+32;
+			fah=f;
+		}
+		void display(){
+			cout<<"Fahreheit ="<<fah;
+		}
+};
+int main()
+{
+	celsius c(1);
+	fahreheit f;
+	f=c;
+	f.display();
+	return 0;
+}
+
+
+/*16. Design a class Fraction with numerator and denominator. Overload % and / so that f3
+= f1 % f2 and f3 = f1 / f2 work meaningfully on fraction objects.*/
+
+#include<iostream>
+using namespace std;
+class fraction {
+	float num;
+	float den;
+	public:
+		void getdata(){
+			cout<<"Enter Numerator and Denominator:";
+			cin>>num>>den;
+		}
+		
+		void display(){
+			cout << num << "/" << den << " (Decimal: " << (float)num / den << ")" << endl;
+		}
+		fraction operator %(fraction f){
+			fraction temp;
+			int quotient = (num * f.den) / (den * f.num);
+        	
+			// Remainder = (num/den) - quotient * (f.num/f.den)
+        	temp.num = (num * f.den) - (quotient * f.num * den);
+        	temp.den = den * f.den;
+        	return temp;
+		}
+		fraction operator /(fraction f){
+			fraction temp;
+			temp.num=num*f.den;
+			temp.den=den*f.num;
+			return temp;
+		}
+};
+int main()
+{
+	fraction f1,f2,f3;
+	cout<<"Enter for object f1:\n";
+	f1.getdata();
+	cout<<"Enter for object f2:\n";
+	f2.getdata();
+	f3=f1%f2;
+	cout<<"After operation f3=f1%f2:"<<endl;
+	f3.display();
+	f3=f1/f2;
+	cout<<"\nAfter operation f3=f1/f2:"<<endl;
+	f3.display();
+	return 0;
+}
+
+
+/*17. Design a class Time with data members hour and minute. Overload the Time class for >, ==, and !=. Write a menu-driven program that lets the user enter two times and choose which comparison to perform.*/
+
+#include<iostream>
+using namespace std;
+class time{
+	int hrs;
+	int min;
+	public:
+		time(){
+			hrs=0;
+			min=0;
+		}
+		void getdata(){
+			cout<<"Enter hrs and min:";
+			cin>>hrs>>min;
+		}
+		int operator >(time t){
+			if(hrs>t.hrs)
+			return 1;
+			else if(hrs==t.hrs && min>t.min)
+			return 1;
+			else 
+			return 0;
+		}
+		int operator ==(time t){
+			if(hrs==t.hrs && min==t.min)
+			return 1;
+			else 
+			return 0;
+		}
+		int operator !=(time t){
+			if(hrs!=t.hrs)
+			return 1;
+			else if(hrs==t.hrs && min!=t.min)
+			return 1;
+			else 
+			return 0;
+		}
+		void display(){
+			cout<<"Hrs and Min="<<hrs<<":"<<min<<endl;
+		}
+};
+int main()
+{
+	int c;
+	time t1,t2;
+	cout<<"Enter t1 object data:\n";
+	t1.getdata();
+	cout<<"Enter t2 object data:\n";
+	t2.getdata();
+	cout<<"Choose require operation:1,2,3 for ie.(>,==,!=):";
+	cin>>c;
+	switch(c){
+		case 1:
+			if(t1>t2){
+			cout<<"t1 is greater ie: ";
+			t1.display();
+			}
+			else
+			{
+				cout<<"t2 is greater ie: ";
+				t2.display();
+			}
+			break;
+			
+			case 2:
+				if(t1==t2){
+				cout<<"both t1 and t2 are equal ie: ";
+				t1.display();
+				}
+				else
+				cout<<"Not equal";
+				break;
+				
+				case 3:
+					if(t1!=t2){
+					cout<<"t1 and t2 are not equal ie:\n";
+					t1.display();
+					t2.display();
+					}
+					else{
+					cout<<"both t1 and t2 are equal ie: ";
+					t1.display();
+					}
+					break;
+					
+					default:
+						cout<<"Invalid operation choosed";
+	}
+	return 0;
+}
+
+
+/*18. Design a class Distance. Overload the = operator explicitly using void operator = (const Distance &d). Create two objects d1 and d2, assign d2 = d1, and display d2*/
+
+#include<iostream>
+using namespace std;
+class Distance{
+	int m;
+	int cm;
+	public:
+		Distance(){
+			m=0;
+			cm=0;
+		}
+		Distance(int x,int y){
+			m=x;
+			cm=y;
+		}
+		void operator =(const Distance &d){
+			m=d.m;
+			cm=d.cm;
+		}
+		void display(){
+			cout<<"Meter="<<m<<endl;
+			cout<<"Centimeter="<<cm;
+		}
+};
+int main()
+{
+	Distance d1(30,45);
+	Distance d2;
+	d2=d1;
+	d2.display();
+	return 0;
+}
+
+
+/*19.Design a class Distance with a single-argument constructor that takes a float representing distance in meters and converts it into feet and inches. Test with Distance d = 2.5;.*/
+
+#include<iostream>
+using namespace std;
+class Distance{
+	int feet;
+	int inches;
+	public:
+		Distance(){
+			feet=0;
+			inches=0;
+		}
+		Distance(float m){
+			inches=m*39.37;
+			feet=inches/12;
+			inches=inches%12;
+		}
+		void display(){
+			cout<<"Feet="<<feet<<endl;
+			cout<<"Inches="<<inches;
+		}
+};
+int main()
+{
+	Distance d1=2.5;
+	d1.display();
+	return 0;
+}
+
+
+/*20.Design two classes: Dist (with meter, centimeter) and Distance (with feet, inches). Write the conversion routine inside the source class Dist using operator Distance() so that d1 = d2; works, where d1 is a Distance object and d2 is a Dist object.*/
+
+#include<iostream>
+using namespace std;
+class Distance;
+class Dist{
+	int m;
+	int cm;
+	public:
+		Dist(){
+			m=0;
+			cm=0;
+		}
+		Dist(int x,int y){
+			m=x;
+			cm=y;
+		}
+		operator Distance();
+};
+class Distance{
+	int m;
+	int cm;
+	public:
+		Distance(){
+			m=0;
+			cm=0;
+		}
+		Distance(int x,int y){
+			m=x;
+			cm=y;
+		}
+		void display(){
+			cout<<"Meter="<<m<<endl;
+			cout<<"Centimeter="<<cm;
+		}
+};
+
+Dist::operator Distance()
+{
+	return Distance(m,cm);
+}
+int main(){
+	Dist d2(10,12);
+	Distance d1;
+	d1=d2;
+	d1.display();
+	return 0;
+}
+
+
+/*21.Write a program to convert an object of a Tola class (Nepali gold measurement) into an object of a Gram class, given 1 tola = 11.664 grams.*/
+
+#include<iostream>
+using namespace std;
+class Tola{
+	float tola;
+	public:
+		Tola(){
+			tola=0;
+		}
+		Tola(float x){
+			tola=x;
+		}
+		float senddata(){
+			return tola;
+		}
+};
+class Gram{
+	float gram;
+	public:
+		Gram(){
+			gram=0;
+		}
+		Gram(Tola t){
+			float g=t.senddata();
+			gram=g*11.664;
+		}
+		void display(){
+			cout<<"Gram="<<gram;
+		}
+};
+int main(){
+	Tola t1(1);
+	Gram g1;
+	g1=t1;
+	g1.display();
+	return 0;
+}
+
+
+/*Mini Project: Design a complete class Complex (with real, imag) that overloads +, -, *, ==, and =. Write a menu-driven main() that lets the user perform repeated operations on complex numbers until they choose to exit.*/
+
+#include<iostream>
+using namespace std;
+class complex{
+	int real;
+	int img;
+	public:
+		complex(){
+			real=0;
+			img=0;
+		}
+		void getdata(){
+			cout<<"Enter real and imaginary part:";
+			cin>>real>>img;
+		}
+		complex operator +(complex c){
+			complex temp;
+			temp.real=real+c.real;
+			temp.img=img+c.img;
+			return temp;
+		}
+		complex operator -(complex c){
+			complex temp;
+			temp.real=real-c.real;
+			temp.img=img-c.img;
+			return temp;
+		}
+		complex operator *(complex c){
+			complex temp;
+			temp.real=real*c.real;
+			temp.img=img*c.img;
+			return temp;
+		}
+		void operator =(complex c){
+			real=c.real;
+			img=c.img;
+		}
+		int operator ==(complex c){
+			if(real==c.real && img==c.img)
+			return 1;
+			else 
+			return 0;
+		}
+		void display(char c){
+			cout<<real<<c<<img<<"i"<<endl;
+		}
+};
+int main(){
+	int c;
+	char ask;
+	complex c1,c2,c3;
+	TOP:
+	cout<<"Choose requirement:1,2,3,4,5 for ie.(+,-,*,=,==):";
+	cin>>c;
+	if(c==4){
+	cout<<"Enter for object c1:"<<endl;
+	c1.getdata();}
+	else{
+	cout<<"Enter for object c1:"<<endl;
+	c1.getdata();
+	cout<<"Enter for object c2:"<<endl;
+	c2.getdata();
+	}
+	switch(c){
+		case 1:
+			cout<<"After operation c3=c1+c2:"<<endl;
+			c3=c1+c2;
+			c3.display('+');
+			break;
+			
+			case 2:
+			cout<<"After operation c3=c1-c2:"<<endl;
+			c3=c1-c2;
+			c3.display('-');
+			break;
+			
+			case 3:
+			cout<<"After operation c3=c1*c2:"<<endl;
+			c3=c1*c2;
+			c3.display('*');
+			break;
+			
+			case 4:
+			cout<<"After operation c3=c1:"<<endl;
+			c3=c1;
+			c3.display('+');
+			break;
+			
+			case 5:
+			cout<<"After operation c1==c2:"<<endl;
+			if(c1==c2){
+				cout<<"c1 and c2 are equal. ie:";
+				c1.display('+');
+			}
+			else{
+				cout<<"c1 and c2 are not equal. ie:"<<endl;
+				c1.display('+');
+				c2.display('+');
+			}
+			break;
+			
+			default:
+			cout<<"Invalid operation choosed.";
+	}
+	cout<<"Do you want to continue (y/n):";
+	cin>>ask;
+	if(ask=='y' || ask=='Y')
+	goto TOP;
+	else
+	return 0;
+}

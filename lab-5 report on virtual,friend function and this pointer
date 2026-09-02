@@ -1,0 +1,555 @@
+/*A1. Create a base class Animal with a member function sound() that prints "Animal makes a sound". Create a derived class Dog that overrides sound() to print "Dog barks". In main(), use an Animal* pointer to point to a Dog object and call sound(). Note that the base class version runs.*/
+
+#include<iostream>
+using namespace std;
+class animal{
+	public:
+	void sound(){
+		cout<<"Animal makes a sound"<<endl;
+	}
+};
+class dog:public animal{
+	public:
+	void sound(){
+		cout<<"Dog brakes"<<endl;
+	}
+};
+int main(){
+	animal *ptr;
+	animal a1;
+	dog d1;
+	ptr=&a1;
+	ptr->sound();
+	ptr=&d1;
+	ptr->sound();
+	return 0;
+}
+
+/*note: since we make pointer object of base class therefore even i try to bind object of derived class but also while calling function sound using pointer object it always call only base class function. */
+
+
+
+/*A2. Now make sound() a virtual function in Animal and run the same program again. Note the change in output and write one line explaining why it changed*/
+
+#include<iostream>
+using namespace std;
+class animal{
+	public:
+	virtual void sound(){
+		cout<<"Animal makes a sound"<<endl;
+	}
+};
+class dog:public animal{
+	public:
+	void sound(){
+		cout<<"Dog brakes"<<endl;
+	}
+};
+int main(){
+	animal *ptr;
+	animal a1;
+	dog d1;
+	ptr=&a1;
+	ptr->sound();
+	ptr=&d1;
+	ptr->sound();
+	return 0;
+}
+
+/*note: since we make pointer object of base class therefore even i try to bind object of derived class but also while calling function sound using pointer object it always call only base class function in qn1 but using virtual function enable late binding these solve the problem.So, that output change than previous. */
+
+
+
+/*A3. Create a base class Shape with a virtual function draw(). Create two derived classes Circle and Square, each overriding draw() to print its own message. In main(), create a Shape* pointer, point it first to a Circle object and then to a Square object, calling draw() each time.*/
+
+#include<iostream>
+using namespace std;
+class shape{
+	public:
+	virtual void draw(){
+		cout<<"draw function of base class shape"<<endl;
+	}
+};
+class circle:public shape{
+	public:
+		void draw(){
+			cout<<"draw function of derived class circle"<<endl;
+		}
+};
+class square:public shape{
+	public:
+		void draw(){
+			cout<<"draw function of derived class square"<<endl;
+		}
+};
+int main(){
+	shape *ptr;
+	circle c;
+	square s;
+	ptr=&c;
+	ptr->draw();
+	ptr=&s;
+	ptr->draw();
+	return 0;
+}
+
+
+
+/*B1. Create an abstract class Shape with a pure virtual function area(). Derive a class Rectangle (with length and breadth) that implements area(). In main(), use a Shape* pointer to call area() on a Rectangle object.*/
+
+#include<iostream>
+using namespace std;
+class shape{
+	protected:
+	float l,b;
+	public:
+	void getdata(){
+		cout<<"Enter length and breadth:";
+		cin>>l>>b;
+	}
+	virtual void area()=0;
+};
+class rectangle:public shape{
+	public:
+	void area(){
+		float ar;
+		ar=l*b;
+		cout<<"Area of rectangle="<<ar;
+	}
+};
+int main(){
+	shape *ptr;
+	rectangle r;
+	ptr=&r;
+	ptr->getdata();
+	ptr->area();
+	return 0;
+}
+
+
+
+/*B2. Try writing Shape s; in main() for the class from B1. Compile the program and write down the error message you get. Explain in one or two lines why this happens.*/
+
+#include<iostream>
+using namespace std;
+class shape{
+	protected:
+	float l,b;
+	public:
+	void getdata(){
+		cout<<"Enter length and breadth:";
+		cin>>l>>b;
+	}
+	virtual void area()=0;
+};
+class rectangle:public shape{
+	public:
+	void area(){
+		float ar;
+		ar=l*b;
+		cout<<"Area of rectangle="<<ar;
+	}
+};
+int main(){
+	shape *ptr;
+	shape s;
+	rectangle r;
+	ptr=&r;
+	ptr->getdata();
+	ptr->area();
+	return 0;
+}
+
+Note: The error comes because for the abstract class ,we cannot make its object of class contaning pure virtual function that called abstract type class.
+
+
+
+/*B3. Extend B1 by adding a second derived class Circle (with radius) that also implements area(). Create one object of each class and display both areas using Shape* pointers.*/
+
+#include<iostream>
+using namespace std;
+class shape{
+	protected:
+	float l,b;
+	float r;
+	public:
+	void getdata1(){
+		cout<<"Enter length and breadth:";
+		cin>>l>>b;
+	}
+	void getdata2(){
+		cout<<"Enter radius:";
+		cin>>r;
+	}
+	virtual float area()=0;
+};
+class circle:public shape{
+	public:
+		float area(){
+			return 3.1415*r*r;
+		}
+};
+class rectangle:public shape{
+	public:
+	float area(){
+		return l*b;
+	}
+};
+int main(){
+	shape *ptr;
+	rectangle r;
+	circle c;
+	ptr=&r;
+	ptr->getdata1();
+	cout<<"The area of rectangle is:"<<ptr->area();
+	cout<<endl;
+	ptr=&c;
+	ptr->getdata2();
+	cout<<"The area of circle is:"<<ptr->area();
+	return 0;
+}
+
+
+
+/*C1. Create a base class A and a derived class B, each with a constructor and a destructor that prints a message. In main(), create a Derived object with new, store its address in a Base* pointer, and delete it. Note which destructor(s) get called.*/
+
+#include<iostream>
+using namespace std;
+class A{
+	int a;
+	public:
+	A(){
+		cout<<"Base class constructor called."<<endl;
+	}
+	~A(){
+		cout<<"Base class desctructor called."<<endl;
+	}
+};
+class B:public A{
+	public:
+		B(){
+		cout<<"Derived class B constructor called."<<endl;	
+		}
+		~B(){
+			cout<<"Derived class B destructor called."<<endl;	
+		}
+};
+int main(){
+	A *ptr;
+	ptr=new B();
+	delete ptr;
+	return 0;
+}
+
+Note:Here derived class B destructor doesnot get called because of not making virtual in destructor of base class.
+
+
+
+/*C2. Make the base class destructor virtual and run the same program again. Note that now both destructors are called, and write one line explaining why this is important.*/
+
+#include<iostream>
+using namespace std;
+class A{
+	int a;
+	public:
+	A(){
+		cout<<"Base class constructor called."<<endl;
+	}
+	virtual ~A(){
+		cout<<"Base class desctructor called."<<endl;
+	}
+};
+class B:public A{
+	public:
+		B(){
+		cout<<"Derived class B constructor called."<<endl;	
+		}
+		~B(){
+			cout<<"Derived class B destructor called."<<endl;	
+		}
+};
+int main(){
+	A *ptr;
+	ptr=new B();
+	delete ptr;
+	return 0;
+}
+
+
+
+/*D1. Create a class Sample with two private integers a and b, and a public function to set their values. Write a friend function average() that takes a Sample object and returns the average of a and b. Call it from main().*/
+
+#include<iostream>
+using namespace std;
+class sample{
+	int a,b;
+	public:
+		sample(){
+			a=0;
+			b=0;
+		}
+		sample(int x,int y){
+			a=x;
+			b=y;
+		}
+		friend void average(sample s);
+};
+void average(sample s){
+	cout<<"The average is:"<<float(s.a+s.b)/2;
+}
+int main(){
+	sample s(10,15);
+	average(s);
+	return 0;
+}
+
+
+
+/*D2. Create a class Box with a private data member length. Create a second class PrintBox with a function show(Box b) that prints the length. Declare PrintBox as a friend class of Box so that show() can access the private length. Test it in main().*/
+
+#include<iostream>
+using namespace std;
+class PrintBox;
+class Box{
+	int l;
+	public:
+		Box(){
+			l=0;
+		}
+		Box(int x){
+			l=x;
+		}
+	friend class PrintBox;
+};
+class PrintBox{
+	public:
+		void show(Box b){
+			cout<<"Length="<<b.l;
+		}
+};
+int main(){
+	Box b(40);
+	PrintBox t;
+	t.show(b);
+	return 0;
+}
+
+
+
+/*E1. Create a class Complex with two private data members real and imag. Write a public function setValue(int r, int i) and a function display() to print the number in the form real + imag i. Overload the+ operator using a friend function:friend Complex operator+(Complex c1, Complex c2);*/
+
+#include<iostream>
+using namespace std;
+class complex{
+	int real;
+	int img;
+	public:
+		complex(){
+			real=0;
+			img=0;
+		}
+		void setvalue(int r, int i){
+			real=r;
+			img=i;
+		}
+		void display(){
+			cout<<"The complex number is:"<<real<<"+"<<img<<"i";
+		}
+		friend complex operator +(complex c1,complex c2);
+};
+complex operator +(complex c1,complex c2){
+	complex temp;
+	temp.real=c1.real+c2.real;
+	temp.img=c1.img+c2.img;
+	return temp;
+}
+int main(){
+	complex t,t1,t2;
+	t.setvalue(12,10);
+	t1.setvalue(8,10);
+	t2=t+t1;
+	t2.display();
+	return 0;
+}
+
+
+
+/*E2. Create a class Distance with data members feet and inches. Using a friend function, overload the +operator to add two Distance objects (remember: 12 inches = 1 foot, so handle the carry-over). Display the result using a display() function.*/
+
+#include<iostream>
+using namespace std;
+class Distance{
+	int feet;
+	int inches;
+	public:
+		Distance(){
+			feet=0;
+			inches=0;
+		}
+		void setvalue(int r, int i){
+			feet=r;
+			inches=i;
+		}
+		void display(){
+			cout<<"The total distance is:"<<endl;
+			cout<<"Feet="<<feet<<endl;
+			cout<<"Inches="<<inches;
+		}
+		friend Distance operator +(Distance d1,Distance d2);
+};
+Distance operator +(Distance d1,Distance d2){
+	Distance temp;
+	temp.inches=d1.inches+d2.inches;
+	temp.feet=d1.feet+d2.feet+temp.inches/12;
+	temp.inches=temp.inches%12;
+	return temp;
+}
+int main(){
+	Distance t,t1,t2;
+	t.setvalue(12,10);
+	t1.setvalue(8,10);
+	t2=t+t1;
+	t2.display();
+	return 0;
+}
+
+
+
+Part: The this Pointer
+/*F1. Create a class Student with private members name and age. Write a function setData(char name[],int age) where the parameter names are the same as the member variable names. Use the this pointer inside the function to correctly assign the values (e.g., this->name, this->age). Add a display() function and test it in main().*/
+
+#include<iostream>
+using namespace std;
+class student{
+	char name[50];
+	int age;
+	public:
+		void setdata(const char name[50],int age){
+		for(int i=0; i<50; i++){
+			this->name[i]=name[i];
+		}
+		this->age=age;
+		}
+		
+		void display(){
+			cout<<"Name is:";
+			for(int i=0; i<'\n'; i++){
+			cout<<name[i];
+		}
+		cout<<endl;
+		cout<<"Age is:"<<age;
+		}
+};
+int main(){
+	student s;
+	s.setdata("Aayush",50);
+	s.display();
+	return 0;
+}
+
+
+
+/*F2. In the class from F1, write a function showAddress() that simply prints the address stored in this (i.e., cout << this;). Create two Student objects and call showAddress() on both to confirm that this is different for each object.*/
+
+#include<iostream>
+using namespace std;
+class student{
+	char name[50];
+	int age;
+	public:
+		void setdata(const char name[50],int age){
+		for(int i=0; i<50; i++){
+			this->name[i]=name[i];
+		}
+		this->age=age;
+		}
+		
+		void display(){
+			cout<<"Name is:";
+			for(int i=0; i<'\n'; i++){
+			cout<<name[i];
+			}
+		cout<<endl;
+		cout<<"Age is:"<<age<<endl;
+		}
+		
+		void showaddress(){
+			cout<<"The address of this is:";
+			cout <<this<<endl;
+		}
+};
+int main(){
+	student s1,s2;
+	s1.setdata("Ram",50);
+	s1.display();
+	s1.showaddress();
+	
+	s2.setdata("Shyam",40);
+	s2.display();
+	s2.showaddress();
+	return 0;
+}
+
+
+
+/*F3. Create a class Box with a private data member length. Write a member function compare(Box b) that compares the calling object's length with the passed object's length, and returns the box with the larger length using return *this; (return the calling object) or return b; (return the parameter) as appropriate. Test it in main() with two Box objects and display the result.*/
+
+#include<iostream>
+using namespace std;
+class box{
+	int l;
+	public:
+		box(){
+			l=0;
+		}
+		box(int l){
+			this->l=l;
+		}
+		box compare(box b){
+		if(this->l>b.l)
+		return *this;
+		else
+		return 	b;
+		}
+		void display(){
+			cout<<l;
+		}
+};
+int main(){
+	box b1(20);
+	box b2(40);
+	box larger;
+	larger=b1.compare(b2);
+	cout<<"Largest length=";
+	larger.display();
+	return 0;
+}
+
+
+
+/*F4. Create a class Counter with a private integer count, initialized to 0 in the constructor. Write a member function increment() that increases count by 1 and ends with return *this; (the function's return type should be Counter&). In main(), call it in a chained manner, like:
+Counter c; c.increment().increment().increment(); Print the final value of count and explain in one line how return *this; makes this chaining possible.*/
+
+#include<iostream>
+using namespace std;
+class counter{
+	int count;
+	public:
+	counter(){
+		count=0;
+	}
+	counter &increment(){
+		++count;
+		return *this;
+	}
+	void display(){
+		cout<<"Count value="<<count;
+	}
+};
+int main()
+{
+	counter c;
+	c.increment().increment().increment();
+	c.display();
+	return 0;
+}
